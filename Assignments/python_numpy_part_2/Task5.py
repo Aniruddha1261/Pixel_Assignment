@@ -20,8 +20,7 @@ orig = np.arange(16, dtype='int').reshape(-1, 4)
 print("Original matrix : \n", orig)
 
 ## Write Your code here
-change = np.array(orig)
-for i in range(len(orig)):
-    for x in range(len(orig)):
-     orig[i][x] = change[i][len(change) - x - 1]
+orig[:,[0,3]] = orig[:,[3,0]]
+orig[:,[1,2]] = orig[:,[2,1]]
+
 print(orig) # Write your 1 line of code inside the print() statement

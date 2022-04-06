@@ -17,14 +17,7 @@ The output for the given array should be :
 numbers = np.array([[5.0, 2.7, 5.1],
                   [4.9, 6.2, 8.5],
                   [1.4, 2.8, 9.5]])
-print("Given array : \n", numbers)
+#print("Given array : \n", numbers)
 n = 5
-arr = np.empty(0)
-for x in numbers:
-    for y in x:
-        if y < n: 
-        # print(y)
-         arr1 = np.array([y])
-         arr = np.append(arr, arr1)
-         
-print(arr) # Write your 1 line of code inside the print() statement
+mask = numbers < n
+print(numbers[mask]) # Write your 1 line of code inside the print() statement
