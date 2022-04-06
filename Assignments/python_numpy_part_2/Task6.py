@@ -23,12 +23,10 @@ n = 7
 
 # Write your 2 lines of code here
 mn_array = np.array(np.zeros(m*n)).reshape(m,n)
-for i in range(m):
+'''for i in range(m):
     if i > 0 and i < m - 1:
         for x in range(n):
          if x > 0 and x < n - 1:
-            mn_array[i][x] = 1
-    
-####
-
+            mn_array[i][x] = 1'''
+mn_array[1:m - 1,1:n - 1] = 1
 print(mn_array)
