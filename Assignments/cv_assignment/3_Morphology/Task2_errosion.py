@@ -16,8 +16,8 @@ print(np.array(thresh_img))
 kernel = np.array([[0, 1, 0],[1, 1, 1],[0, 1, 0]])
 
 def convolve(kernel, thres_img):
-    img = cv2.copyMakeBorder(thresh_img, 1, 1, 1, 1, cv2.BORDER_CONSTANT) # Add padding
-    res_img = np.copy(thresh_img)
+    img = cv2.copyMakeBorder(thres_img, 1, 1, 1, 1, cv2.BORDER_CONSTANT) # Add padding
+    res_img = np.copy(thres_img)
     for i in range(1, img.shape[0] - 1):
         for j in range(1, img.shape[1] - 1):
             sum = np.sum(img[i - 1 : i + 2, j - 1 : j + 2] * kernel[:, :])

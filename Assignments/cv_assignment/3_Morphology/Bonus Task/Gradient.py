@@ -15,7 +15,7 @@ print(np.array(thresh_img))
 # Use this kernel'''
 kernel = np.array([[0, 0, 1, 0, 0],[0, 1, 1, 1, 0],[1, 1, 1, 1, 1], [0, 1, 1, 1, 0],[0, 0, 1, 0, 0]])
 
-def convolve(kernel, img1):
+def gradient(kernel, img1):
     img = cv2.copyMakeBorder(img1, 2, 2, 2, 2, cv2.BORDER_CONSTANT) # Add padding
     res_img = np.copy(img1)
     for i in range(2, img.shape[0] - 2):
@@ -30,7 +30,7 @@ def convolve(kernel, img1):
                 res_img[i - 2, j - 2] = 0
     return res_img
 
-res = convolve(kernel, image)
+res = gradient(kernel, image)
 #print(np.array(thresh_img))
 
 orig = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
