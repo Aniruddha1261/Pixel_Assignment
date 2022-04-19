@@ -1,33 +1,41 @@
 import numpy as np
-import math as m
-import matplotlib.pyplot as plt
 import cv2
 
-image = plt.imread('images/blur.jpeg')
-plt.imshow(image)
-#plt.show()
-h,w,c=image.shape
-thetha = input(print("Enter angle by which you want to rotate image : ", end= " "))
-print(thetha)
-image1=np.zeros((h,w,c),dtype=image.dtype)  # creating a new array for image
+def rotate(img,angle_of_rotation,centre,shape_img):
 
-#centre of image 
-cx = w/2
-cy = h/2
-
-for i in range(h):
-  for j in range(w):
-    #image1[i][j]=image[h-1-i][w-1-j] #clockwise rotation ke liye
-    #distance of the pixal from centre
-
-    #x-co-ordinate
-    x = j - cx
-    #y-co-ordinate
-    y = i - cy
-    #distance of the pixal from centre
-    d = int(np.sqrt(np.square(x - cx) + np.square(y - cy)))
-    image1[i][j]=image[int(d*np.sin(thetha))][int(d*np.cos(thetha))] #anti clockwise rotation + flip ke liye
+    #1.create rotation matrix with numpy array
+    R = np.transpose(np.array([[np.cos(angle_of_rotation),-np.sin(angle_of_rotation)],
+                            [np.sin(angle_of_rotation),np.cos(angle_of_rotation)]]))
+    h,w = shape_img
     
+    pivot_point_x =  centre[0]
+    pivot_point_y = centre[1]
     
-plt.imshow(image1)
-plt.show()
+    image1 = np.zeros(img.shape,dtype='u1') 
+
+    for i in range(h): #h = number of row
+        for j in range(w): #w = number of col
+            OrigCoordinates = np.array([[j - pivot_point_x],[i - pivot_point_y]])
+            
+            newCordinates = np.dot(R,OrigCoordinates)
+
+            new_x = pivot_point_x + int(newCordinates[0])
+            new_y = pivot_point_y + int(newCordinates[1])
+
+
+            if (0 <= new_x <= w-1) and (0 <= new_y <= h-1): 
+                image1[new_y,new_x] = img[i,j]
+
+    return image1
+
+angle = int(input(print("Angle to rotate image", end= " ")))
+thetha = angle * (np.pi/180)
+image = cv2.imread('images/blur.jpeg') 
+h,w = image.shape[:2] 
+x = int(w/2)
+y = int(h/2)
+centre = (x,y)
+image2 = rotate(image,thetha,centre,(h,w))
+cv2.imshow("original_img",image)
+cv2.imshow("own_rotate_img",image2)
+cv2.waitKey(0)
